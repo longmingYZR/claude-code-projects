@@ -12,3 +12,7 @@ node_modules/
 
 # Claude
 .claude/
+
+# Sub-projects with their own git repos
+first-cc/
+sales-assistant/
