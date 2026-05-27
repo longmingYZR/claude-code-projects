@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Coding Guidelines
+
+Always apply [Karpathy Guidelines](~/.agents/skills/karpathy-guidelines/SKILL.md):
+1. **Think Before Coding** — State assumptions, surface tradeoffs, ask when unclear.
+2. **Simplicity First** — Minimum code, no speculative features, no premature abstractions.
+3. **Surgical Changes** — Touch only what's needed, match existing style, clean up only your own mess.
+4. **Goal-Driven Execution** — Define verifiable success criteria, loop until verified.
+
 ## Project overview
 
 A single-page browser tool that geocodes addresses in bulk and plots them on a map. Users upload CSV/XLSX/XLS files; the app converts addresses to lat/lon via the Gaode (高德) geocoding API, then displays markers on a Leaflet/OpenStreetMap map. Exports include map screenshots (PNG), CSV with coordinates, and KML.
