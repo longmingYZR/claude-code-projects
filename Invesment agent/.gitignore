@@ -1,7 +1,0 @@
-__pycache__/
-*.db
-logs/
-*.png
-*.jpg
-framework_output.txt
-.env
