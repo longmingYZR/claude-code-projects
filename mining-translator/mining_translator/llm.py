@@ -1,6 +1,5 @@
-"""LLM backend abstraction supporting Claude and OpenAI-compatible APIs."""
+"""LLM backend abstraction. DeepSeek (default), Claude, OpenAI-compatible."""
 
-import json
 import logging
 from . import config
 
@@ -24,8 +23,24 @@ def translate_text(
 
     if backend == "claude":
         return _call_claude(system_prompt, user_prompt)
+    elif backend == "deepseek":
+        return _call_deepseek(system_prompt, user_prompt)
     else:
-        return _call_openai(system_prompt, user_prompt, backend)
+        return _call_openai_compatible(system_prompt, user_prompt, backend)
+
+
+def _call_deepseek(system_prompt: str, user_prompt: str) -> str:
+    api_key = config.DEEPSEEK_API_KEY
+    if not api_key:
+        raise TranslationError(
+            "DEEPSEEK_API_KEY not set. Set the environment variable: set DEEPSEEK_API_KEY=sk-..."
+        )
+    return _call_openai_compatible(
+        system_prompt, user_prompt,
+        api_key=api_key,
+        base_url=config.DEEPSEEK_BASE_URL,
+        model=config.DEEPSEEK_MODEL,
+    )
 
 
 def _call_claude(system_prompt: str, user_prompt: str) -> str:
@@ -54,11 +69,21 @@ def _call_claude(system_prompt: str, user_prompt: str) -> str:
     return content
 
 
-def _call_openai(system_prompt: str, user_prompt: str, backend: str) -> str:
-    api_key = config.OPENAI_API_KEY
+def _call_openai_compatible(
+    system_prompt: str,
+    user_prompt: str,
+    backend: str = "openai",
+    api_key: str = None,
+    base_url: str = None,
+    model: str = None,
+) -> str:
+    api_key = api_key or config.OPENAI_API_KEY
+    base_url = base_url or config.OPENAI_BASE_URL
+    model = model or config.OPENAI_MODEL
+
     if not api_key:
         raise TranslationError(
-            "OPENAI_API_KEY not set. Set the environment variable or configure in config.py."
+            f"API key not set for backend '{backend}'. Set the environment variable."
         )
 
     try:
@@ -66,9 +91,9 @@ def _call_openai(system_prompt: str, user_prompt: str, backend: str) -> str:
     except ImportError:
         raise TranslationError("openai package not installed. Run: pip install openai")
 
-    client = OpenAI(api_key=api_key, base_url=config.OPENAI_BASE_URL)
+    client = OpenAI(api_key=api_key, base_url=base_url)
     response = client.chat.completions.create(
-        model=config.OPENAI_MODEL,
+        model=model,
         max_tokens=config.MAX_TOKENS,
         temperature=config.TRANSLATION_TEMPERATURE,
         messages=[

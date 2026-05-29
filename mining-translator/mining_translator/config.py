@@ -1,14 +1,20 @@
 import os
 
-# LLM API configuration
+# DeepSeek API (default)
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+DEEPSEEK_BASE_URL = "https://api.deepseek.com"
+DEEPSEEK_MODEL = "deepseek-chat"
+
+# Claude API (optional)
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
+# OpenAI-compatible API (optional)
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 OPENAI_MODEL = "gpt-4o"
 
-DEFAULT_BACKEND = "claude"
+DEFAULT_BACKEND = "deepseek"
 
 # Paths (relative to project root)
 GLOSSARY_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "glossary")

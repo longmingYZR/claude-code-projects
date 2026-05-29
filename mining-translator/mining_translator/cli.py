@@ -207,7 +207,7 @@ def _add_translate_parser(subparsers):
                    help="Target language")
     p.add_argument("-o", "--output", default=None, help="Output file path")
     p.add_argument("--no-extract", action="store_true", help="Skip term extraction")
-    p.add_argument("--backend", choices=["claude", "openai"],
+    p.add_argument("--backend", choices=["deepseek", "claude", "openai"],
                    default=config.DEFAULT_BACKEND, help="LLM backend")
     p.set_defaults(func=cmd_translate)
 
