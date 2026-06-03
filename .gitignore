@@ -16,6 +16,7 @@ node_modules/
 # Sub-projects with their own git repos
 first-cc/
 sales-assistant/
+echo/
 
 # Local-only projects (not tracked in this repo)
 Invesment agent/
