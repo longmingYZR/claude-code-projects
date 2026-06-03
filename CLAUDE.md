@@ -21,6 +21,8 @@ This is a multi-project workspace. Each subdirectory is an independent project w
 | `first-cc/` | Pomodoro timer utility | `longmingYZR/pomodoro-timer` |
 | `Invesment agent/` | Python investment monitoring agent | — |
 | `voice-transcribe/` | Audio transcription utility | — |
+| `crm-records/` | 商机委托拜访记录系统 — 拉美客户沟通记录与中西双语委托消息生成 | (part of outer repo) |
+| `echo/` | AI 语音伴侣 — Web 交互层 + Python 语音链路（VAD→Whisper→LLM→TTS） | `longmingYZR/echo` |
 
 ## Push discipline
 
